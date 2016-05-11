@@ -1,0 +1,118 @@
+\definecolor{links}{HTML}{2A1B81}
+\hypersetup{colorlinks,linkcolor=,urlcolor=links}
+
+\usetheme{Boadilla}
+\usecolortheme{seahorse}
+\usefonttheme{serif}
+\beamertemplatenavigationsymbolsempty
+
+\usepackage{luacode}
+\usepackage{luatexja}
+\usepackage{pgfpages}
+\usepackage[osf]{mathpazo}
+\usepackage{fontspec}
+
+\begin{luacode*}
+  USE_IPAFONT = os.getenv"USE_IPAFONT"
+  
+  if USE_IPAFONT == "true" then
+    tex.sprint("\\AtBeginDocument{\\usepackage[ipaex, deluxe, expert]{luatexja-preset}}")
+  else
+    tex.sprint("\\AtBeginDocument{\\usepackage[hiragino-pro, deluxe, expert]{luatexja-preset}}")
+    tex.sprint("\\AtBeginDocument{\\setmainjfont[BoldFont=Hiragino Kaku Gothic Pro W6]{Hiragino Kaku Gothic Pro W3}}")
+  end
+\end{luacode*}
+
+\usepackage{epigraph}
+\usepackage{etoolbox}
+\usepackage{tikz}
+\usepackage{framed}
+\usepackage{libertine}
+\usepackage[final]{listings}
+\usepackage{amsmath}
+\usepackage{mathtools}
+
+%\setbeameroption{show notes on second screen=right}
+
+%\usetikzlibrary{arrows,automata,shapes,backgrounds}
+
+\setmainfont[Numbers=OldStyle, BoldFont=Palatino Bold]{Palatino}
+\setsansfont{CMU Sans Serif}
+\setmonofont{CMU Typewriter Text}
+
+\title[Mental Jinro]{%
+  \href{https://github.com/y-yu/mental-jinro-slide}{Mental Jinro} \\
+  \href{http://connpass.com/event/30661/}{\normalsize tsukuba.pm \#3}
+}
+\author{吉村 優}
+\date{May 14, 2016}
+\institute[\url{https://twitter.com/\_yyu\_}]{%
+  \url{https://twitter.com/\_yyu\_}\\
+  \url{http://qiita.com/yyu}\\
+  \url{https://github.com/y-yu}\\
+}
+
+\input{./lib/quotebox.tex}
+\input{./lib/listings.tex}
+\input{./lib/footnotemark.tex}
+\input{./lib/mydescription.tex}
+
+\newcommand\ballref[1]{%
+\tikz \node[circle, shade,ball color=structure.fg,inner sep=0pt,%
+  text width=8pt,font=\tiny,align=center] {\color{white}\ref{#1}};
+}
+
+%\everymath{\displaystyle}
+
+\begin{document}
+
+\frame{\maketitle}
+
+\section{自己紹介}
+\begin{frame}[fragile]
+  \frametitle{自己紹介}
+  
+  \begin{columns}
+    \begin{column}{0.25\textwidth}
+      \centering
+      \begin{figure}
+        \includegraphics[width=\textwidth]{img/bird2x.png}
+      \end{figure}
+    \end{column}
+    \begin{column}{0.75\textwidth}
+      \begin{itemize}
+        \item<2-> 吉村 優
+        \item<3-> COINS11
+        \item<4-> WORD編集部OB
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\section{``Mental Jinro''とは}
+\begin{frame}[fragile]
+  \frametitle{``Mental Jinro''とは}
+  
+   \uncover<2->{
+    \begin{block}{}
+      \begin{shadequote}[r]{}
+        \textbf{Mental Jinro}は\textbf{人狼}からゲームマスター（審判）を排除したゲームである。
+      \end{shadequote}
+    \end{block}
+  }
+
+  \uncover<3->{
+    \begin{alertblock}{}
+      \centering
+      そもそも\textbf{人狼}とはどのようなゲームか？
+    \end{alertblock}
+  }
+\end{frame}
+
+\subsection{人狼の説明}
+\begin{frame}[fragile]
+  \frametitle{``Mental Jinro''とは}
+
+\end{frame}
+
+\end{document}

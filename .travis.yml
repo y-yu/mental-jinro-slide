@@ -27,7 +27,7 @@ before_script:
   - sudo fmtutil-sys --byfmt lualatex
   - export USE_IPAFONT=true
 script:
-  - latexmk -pdf mental_jinro.tex
+  - make all
 after_success:
   - echo -e "Host github.com\n\tStrictHostKeyChecking no\nIdentityFile ~/.ssh/deploy.key\n" >> ~/.ssh/config
   - openssl aes-256-cbc -k "$SERVER_KEY" -in deploy_key.enc -d -a -out deploy.key
@@ -38,9 +38,9 @@ after_success:
   - git fetch origin gh-pages:gh-pages
   - git stash -u
   - git checkout gh-pages
-  - rm mental_jinro.pdf
+  - rm mental_jinro.pdf mental_jinro_without_animation.pdf
   - git stash pop
-  - git add mental_jinro.pdf
+  - git add mental_jinro.pdf mental_jinro_without_animation.pdf
   - git commit -a -m "auto commit on travis $TRAVIS_JOB_NUMBER $TRAVIS_COMMIT"
   - git push git@github.com:y-yu/mental-jinro-slide.git gh-pages:gh-pages
 env:

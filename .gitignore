@@ -13,4 +13,5 @@
 *.out
 *.pdf
 !mental_jinro.pdf
+!mental_jinro_without_animation.pdf
 
