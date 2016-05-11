@@ -56,6 +56,7 @@
 \input{./lib/listings.tex}
 \input{./lib/footnotemark.tex}
 \input{./lib/mydescription.tex}
+\input{./lib/ballon.tex}
 
 \newcommand\ballref[1]{%
 \tikz \node[circle, shade,ball color=structure.fg,inner sep=0pt,%
@@ -73,46 +74,136 @@
   \frametitle{自己紹介}
   
   \begin{columns}
-    \begin{column}{0.25\textwidth}
+    \begin{column}{0.4\textwidth}
       \centering
       \begin{figure}
-        \includegraphics[width=\textwidth]{img/bird2x.png}
+        \includegraphics[width=0.9\textwidth]{img/bird2x.png}
       \end{figure}
     \end{column}
-    \begin{column}{0.75\textwidth}
+    \begin{column}{0.6\textwidth}
       \begin{itemize}
-        \item<2-> 吉村 優
-        \item<3-> COINS11
-        \item<4-> WORD編集部OB
+        \item<2-> \href{https://www.coins.tsukuba.ac.jp/}{筑波大学 情報科学類} 学士（COINS11）
+        \item<3-> \href{http://www.word-ac.net/}{WORD編集部} OB
+        \item<4-> \href{http://logic.cs.tsukuba.ac.jp/index-j.html}{プログラム論理研究室} OB
       \end{itemize}
     \end{column}
   \end{columns}
 \end{frame}
 
-\section{``Mental Jinro''とは}
+\section{``Mental Jinro''とは？}
 \begin{frame}[fragile]
-  \frametitle{``Mental Jinro''とは}
+  \frametitle{``Mental Jinro''とは？}
   
    \uncover<2->{
     \begin{block}{}
       \begin{shadequote}[r]{}
-        \textbf{Mental Jinro}は\textbf{人狼}からゲームマスター（審判）を排除したゲームである。
+        \textbf{Mental Jinro}は\textbf{人狼}から\textbf{ゲームマスター}を排除したゲームである。
       \end{shadequote}
     \end{block}
   }
 
-  \uncover<3->{
-    \begin{alertblock}{}
-      \centering
-      そもそも\textbf{人狼}とはどのようなゲームか？
-    \end{alertblock}
-  }
+  \begin{center}
+    \uncover<3->{
+      \begin{tikzpicture}
+        \calloutquote[author={},width=6cm,position={(-2,-0.5)},fill=green!30,rounded corners]{\textbf{ゲームマスター}とは何か？}
+      \end{tikzpicture}
+    }
+
+    \uncover<4->{
+      \begin{tikzpicture}
+        \calloutquote[author={},width=6cm,position={(3,-0.5)},fill=blue!30,rounded corners]{そもそも\textbf{人狼}とは何か？}
+      \end{tikzpicture}
+    }
+  \end{center}
 \end{frame}
 
-\subsection{人狼の説明}
+\subsection{人狼とは？}
 \begin{frame}[fragile]
-  \frametitle{``Mental Jinro''とは}
+  \frametitle{人狼とは？}
 
+  \begin{exampleblock}{人狼\footnote[frame]{人狼には様々なルールがあるが、このスライドではこのルールを用いる}}
+    \begin{shadequote}[r]{\scriptsize \href{https://ja.wikipedia.org/wiki/\%E6\%B1\%9D\%E3\%81\%AF\%E4\%BA\%BA\%E7\%8B\%BC\%E3\%81\%AA\%E3\%82\%8A\%E3\%82\%84\%3F}{Wikipedia ------ 汝は人狼なりや？}}
+      \begin{itemize}
+        \item<2-> プレイヤーはそれぞれが\textbf{村人}と村人に化けた\textbf{人狼}となり、自分自身の正体がばれないように他のプレイヤーと交渉して正体を探る
+        \item<3-> ゲームは半日単位で進行し、昼には全プレイヤーの投票により決まった人狼容疑者の\textbf{処刑}が、夜には人狼による村人の\textbf{襲撃}が行われる
+        \item
+          \begin{itemize}
+            \item<4-> 全ての人狼を処刑することができれば村人チームの勝ち
+            \item<5-> 人狼と同じ数まで村人を減らすことができれば人狼チームの勝ち
+          \end{itemize}
+      \end{itemize}
+    \end{shadequote}
+  \end{exampleblock}
+\end{frame}
+
+\subsection{人狼の役職}
+\begin{frame}[fragile]
+  \frametitle{人狼の役職}
+
+  \begin{block}{人狼に必要な役職}
+    参加者を次の役職に分ける必要がある
+    \begin{itemize}
+      \item<2-> 村人
+      \item<3-> 人狼
+      \item<4-> \textbf{ゲームマスター}
+    \end{itemize}
+  \end{block}
+
+  \begin{center}
+    \uncover<5->{
+      \begin{tikzpicture}
+        \calloutquote[author={},width=6cm,position={(-2,-0.5)},fill=green!30,rounded corners]{\textbf{ゲームマスター}とは何か？}
+      \end{tikzpicture}
+    }
+  \end{center}
+\end{frame}
+
+\subsection{ゲームマスターと公平性}
+\begin{frame}[fragile]
+  \frametitle{ゲームマスターと公平性}
+
+  \begin{block}{ゲームマスターの役割}
+    \begin{itemize}
+      \item<2-> 人狼と村人のチーム分けをする
+      \item<3-> 人狼に襲撃された村人を村人チームに宣告する
+      \item<4-> 人狼と村人の数を管理し、どちらかのチームが勝利した時それを宣言する
+    \end{itemize}
+  \end{block}
+
+  \begin{center}
+    \uncover<5->{
+      \begin{tikzpicture}
+        \calloutquote[author={},width=5cm,position={(-2,-0.5)},fill=green!30,rounded corners]{\textbf{ゲームマスター}とは審判}
+      \end{tikzpicture}
+    }
+
+    \uncover<6->{
+      \begin{tikzpicture}
+        \calloutquote[author={},width=7cm,position={(3,-0.5)},fill=blue!30,rounded corners]{ゲームマスターが\textbf{不公平}だったら？}
+      \end{tikzpicture}
+    }
+
+    \uncover<7->{
+      \begin{tikzpicture}
+        \calloutquote[author={},width=2cm,position={(-2,-0.5)},fill=red!30,rounded corners]{\textbf{大問題！}}
+      \end{tikzpicture}
+    }
+  \end{center}
+\end{frame}
+
+\subsection{Mental Jinro}
+\begin{frame}[fragile]
+  \frametitle{Mental Jinro}
+
+  \begin{center}
+    \begin{tikzpicture}
+      \calloutquote[author={\includegraphics[width=1cm]{./img/bird2x.png}},width=10cm,position={(-1.5,-0.5)},fill=green!30,rounded corners]{\huge\textbf{ゲームマスター}を消そう！}
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\begin{frame}{目次}
+  \tableofcontents
 \end{frame}
 
 \end{document}
