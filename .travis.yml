@@ -25,7 +25,7 @@ before_script:
   - sudo mktexlsr
   - cd -
   - sudo fmtutil-sys --byfmt lualatex
-  - export USE_YUFONT=true
+  - export USE_IPAFONT=true
 script:
   - make all
 after_success:

@@ -108,13 +108,13 @@
   \begin{center}
     \uncover<3->{
       \begin{tikzpicture}
-        \calloutquote[author={},width=6cm,position={(-2,-0.5)},fill=green!30,rounded corners]{\textbf{ゲームマスター}とは何か？}
+        \calloutquote[author={},width=6cm,position={(-1.2,-0.5)},fill=green!30,rounded corners]{\textbf{ゲームマスター}とは何か？}
       \end{tikzpicture}
     }
 
     \uncover<4->{
       \begin{tikzpicture}
-        \calloutquote[author={},width=6cm,position={(3,-0.5)},fill=blue!30,rounded corners]{そもそも\textbf{人狼}とは何か？}
+        \calloutquote[author={},width=6cm,position={(1,-0.5)},fill=blue!30,rounded corners]{そもそも\textbf{人狼}とは何か？}
       \end{tikzpicture}
     }
   \end{center}
@@ -155,7 +155,7 @@
   \begin{center}
     \uncover<5->{
       \begin{tikzpicture}
-        \calloutquote[author={},width=6cm,position={(-2,-0.5)},fill=green!30,rounded corners]{\textbf{ゲームマスター}とは何か？}
+        \calloutquote[author={},width=6cm,position={(-1,-0.5)},fill=green!30,rounded corners]{\textbf{ゲームマスター}とは何か？}
       \end{tikzpicture}
     }
   \end{center}
@@ -176,13 +176,13 @@
   \begin{center}
     \uncover<5->{
       \begin{tikzpicture}
-        \calloutquote[author={},width=5cm,position={(-2,-0.5)},fill=green!30,rounded corners]{\textbf{ゲームマスター}とは審判}
+        \calloutquote[author={},width=5cm,position={(-1.3,-0.5)},fill=green!30,rounded corners]{\textbf{ゲームマスター}とは審判}
       \end{tikzpicture}
     }
 
     \uncover<6->{
       \begin{tikzpicture}
-        \calloutquote[author={},width=7cm,position={(3,-0.5)},fill=blue!30,rounded corners]{ゲームマスターが\textbf{不公平}だったら？}
+        \calloutquote[author={},width=7cm,position={(1.2,-0.5)},fill=blue!30,rounded corners]{ゲームマスターが\textbf{不公平}だったら？}
       \end{tikzpicture}
     }
 
@@ -200,7 +200,7 @@
 
   \begin{center}
     \begin{tikzpicture}
-      \calloutquote[author={\includegraphics[width=1cm]{./img/bird2x.png}},width=10cm,position={(-1.5,-0.5)},fill=green!30,rounded corners]{\huge\textbf{ゲームマスター}を消そう！}
+      \calloutquote[author={\includegraphics[width=1cm]{./img/bird2x.png}},width=10cm,position={(-1.1,-0.5)},fill=green!30,rounded corners]{\huge\textbf{ゲームマスター}を消そう！}
     \end{tikzpicture}
   \end{center}
 
@@ -213,6 +213,63 @@
       \end{itemize}
     \end{alertblock}
   }
+\end{frame}
+
+\begin{frame}
+  \centering
+  {\Huge Mental Jinroを支える技術 \\ \uncover<2->{\textbf{コミットメント}}}
+\end{frame}
+
+\section{コミットメント}
+
+\subsection{コイントスゲーム}
+\begin{frame}[fragile]
+  \frametitle{コイントスゲーム}
+
+  \begin{exampleblock}{}
+    アリスとボブの二人がいるとする
+    \begin{enumerate}
+      \item<2-> アリスがコインの``表''または``裏''を紙に書き、紙を封筒に入れる
+      \item<3-> ボブはコインを投げる
+      \item<4-> 封筒から紙を取り出し、
+        \begin{itemize}
+          \item アリスの予想とコインの結果が同じなら、アリスの勝利
+          \item アリスの予想とコインの結果が違えば、ボブの勝利
+        \end{itemize}
+      \item<5-> このゲームは\textbf{電話上}で行う
+    \end{enumerate}
+  \end{exampleblock}
+
+  \begin{center}
+    \uncover<6->{
+      \begin{tikzpicture}
+        \calloutquote[author={},width=6cm,position={(-1.2,-0.3)},fill=green!30,rounded corners]{アリスが予想を\textbf{反故}にする？}
+      \end{tikzpicture}
+    }
+
+    \uncover<7->{
+      \begin{tikzpicture}
+        \calloutquote[author={},width=6.5cm,position={(1.1,-0.3)},fill=blue!30,rounded corners]{ボブがアリスの主張を信じない？}
+      \end{tikzpicture}
+    }
+  \end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{コイントスゲーム}
+
+  \begin{block}{プロトコル}
+    \begin{enumerate}
+      \item<2-> ボブは$p = 2q + 1$となる大きな素数$p, q$をランダムに生成して、
+        $\mathbb{Z}^*_p$\footnote[frame]{整数$x \bmod p$かつ$xy \equiv 1 \pmod{p}$となる逆元$y$が存在する$x$の集合である}
+        の位数$q$の部分群$G$から生成元$g, v$をランダムに選択して$p, q, g, v$をアリスへ送信する
+      \item<3-> アリスは$p, q, g, v$を検証し、表と予想するなら$m := 1$を選択し、裏と予想するなら$m := q - 1$を選択し、
+        乱数$r \in \{1, \dots, q - 1\}$を用いて$c := g^r v^m \bmod p$計算し$c$をボブへ送信する
+      \item<4-> ボブはコイントスをして、結果をアリスへ送信する
+      \item<5-> アリスは$r, m$を公開する
+      \item<6-> ボブは$c \equiv g^r v^m \pmod{n}$を検証する
+    \end{enumerate}
+  \end{block}
 \end{frame}
 
 \begin{frame}{目次}
