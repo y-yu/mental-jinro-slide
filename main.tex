@@ -10,12 +10,15 @@
 \usepackage{luatexja}
 \usepackage{pgfpages}
 \usepackage[osf]{mathpazo}
-\usepackage{fontspec}
 
 \begin{luacode*}
   USE_IPAFONT = os.getenv"USE_IPAFONT"
+  USE_YUFONT = os.getenv"USE_YUFONT"
   
-  if USE_IPAFONT == "true" then
+  if USE_YUFONT == "true" then
+    tex.sprint("\\AtBeginDocument{\\usepackage[yu-osx, deluxe, expert]{luatexja-preset}}")
+    tex.sprint("\\AtBeginDocument{\\setmainjfont[BoldFont=YuGothic Bold]{YuGothic Medium}}")
+  elseif USE_IPAFONT == "true" then
     tex.sprint("\\AtBeginDocument{\\usepackage[ipaex, deluxe, expert]{luatexja-preset}}")
   else
     tex.sprint("\\AtBeginDocument{\\usepackage[hiragino-pro, deluxe, expert]{luatexja-preset}}")
@@ -185,7 +188,7 @@
 
     \uncover<7->{
       \begin{tikzpicture}
-        \calloutquote[author={},width=2cm,position={(-2,-0.5)},fill=red!30,rounded corners]{\textbf{大問題！}}
+        \calloutquote[author={},width=2cm,position={(-1,-0.5)},fill=red!30,rounded corners]{\textbf{大問題！}}
       \end{tikzpicture}
     }
   \end{center}
@@ -200,6 +203,16 @@
       \calloutquote[author={\includegraphics[width=1cm]{./img/bird2x.png}},width=10cm,position={(-1.5,-0.5)},fill=green!30,rounded corners]{\huge\textbf{ゲームマスター}を消そう！}
     \end{tikzpicture}
   \end{center}
+
+  \uncover<2->{
+    \begin{alertblock}{ゲームマスターが消えると……}
+      \begin{itemize}
+        \item<3-> チーム分けはどうする？
+        \item<4-> 襲撃された村人の情報をどう伝える？
+        \item<5-> 勝敗は誰が判断する？ 
+      \end{itemize}
+    \end{alertblock}
+  }
 \end{frame}
 
 \begin{frame}{目次}
