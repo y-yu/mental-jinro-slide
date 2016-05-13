@@ -43,8 +43,8 @@
 \setsansfont{CMU Sans Serif}
 \setmonofont{CMU Typewriter Text}
 
-\title[Mental Jinro]{%
-  \href{https://github.com/y-yu/mental-jinro-slide}{Mental Jinro} \\
+\title[Mental Jinroを支える暗号技術]{%
+  \href{https://github.com/y-yu/mental-jinro-slide}{Mental Jinroを支える暗号技術} \\
   \href{http://connpass.com/event/30661/}{\normalsize tsukuba.pm \#3}
 }
 \author{吉村 優}
@@ -93,14 +93,14 @@
   \end{columns}
 \end{frame}
 
-\section{``Mental Jinro''とは？}
+\section{Mental Jinroとは？}
 \begin{frame}[fragile]
-  \frametitle{``Mental Jinro''とは？}
+  \frametitle{Mental Jinroとは？}
   
    \uncover<2->{
     \begin{block}{}
       \begin{shadequote}[r]{}
-        \textbf{Mental Jinro}は\textbf{人狼}から\textbf{ゲームマスター}を排除したゲームである。
+        \emph{Mental Jinro}は\textbf{人狼}から\textbf{ゲームマスター}を排除したゲームである。
       \end{shadequote}
     \end{block}
   }
@@ -217,7 +217,7 @@
 
 \begin{frame}
   \centering
-  {\Huge Mental Jinroを支える技術 \\ \uncover<2->{\textbf{コミットメント}}}
+  {\huge Mental Jinroを支える暗号技術 \\ \uncover<2->{\Huge\textbf{コミットメント}}}
 \end{frame}
 
 \section{コミットメント}
@@ -229,7 +229,7 @@
   \begin{exampleblock}{}
     アリスとボブの二人がいるとする
     \begin{enumerate}
-      \item<2-> アリスがコインの``表''または``裏''を紙に書き、紙を封筒に入れる
+      \item<2-> アリスがコインの``表''または``裏''を紙に書き、紙を\textbf{封筒}に入れる
       \item<3-> ボブはコインを投げる
       \item<4-> 封筒から紙を取り出し、
         \begin{itemize}
@@ -249,22 +249,23 @@
 
     \uncover<7->{
       \begin{tikzpicture}
-        \calloutquote[author={},width=6.5cm,position={(1.1,-0.3)},fill=blue!30,rounded corners]{ボブがアリスの主張を信じない？}
+        \calloutquote[author={},width=6.5cm,position={(1.1,-0.3)},fill=blue!30,rounded corners]{\textbf{封筒}をどうやって実現する？}
       \end{tikzpicture}
     }
   \end{center}
 \end{frame}
 
-\begin{frame}[fragile]
+\begin{frame}[fragile, label=protocol]
   \frametitle{コイントスゲーム}
 
   \begin{block}{プロトコル}
     \begin{enumerate}
       \item<2-> ボブは$p = 2q + 1$となる大きな素数$p, q$をランダムに生成して、
         $\mathbb{Z}^*_p$\footnote[frame]{整数$x \bmod p$かつ$xy \equiv 1 \pmod{p}$となる逆元$y$が存在する$x$の集合である}
-        の位数$q$の部分群$G$から生成元$g, v$をランダムに選択して$p, q, g, v$をアリスへ送信する
-      \item<3-> アリスは$p, q, g, v$を検証し、表と予想するなら$m := 1$を選択し、裏と予想するなら$m := q - 1$を選択し、
-        乱数$r \in \{1, \dots, q - 1\}$を用いて$c := g^r v^m \bmod p$計算し$c$をボブへ送信する
+        の位数$q$の部分群$G$から\textbf{生成元}\footnote[frame]{後述する}$g, v$をランダムに選択して$p, q, g, v$をアリスへ送信する
+      \item<3-> アリスは$p, q, g, v$を検証し、表と予想するなら\textcolor{red}{$m := 1$}を選択し、
+        裏と予想するなら\textcolor{blue}{$m := q - 1$}を選択し、
+        乱数$r \in \{1, \dots, q - 1\}$を用いて$\mathbf{c := g^r v^m \bmod p}$計算し$c$をボブへ送信する
       \item<4-> ボブはコイントスをして、結果をアリスへ送信する
       \item<5-> アリスは$r, m$を公開する
       \item<6-> ボブは$c \equiv g^r v^m \pmod{n}$を検証する
@@ -272,8 +273,165 @@
   \end{block}
 \end{frame}
 
+\subsection{コイントスゲームの検証}
+\begin{frame}[fragile, label=mdash]
+  \frametitle{コイントスゲームの検証}
+  
+  \begin{center}
+    \uncover<2->{
+      \begin{tikzpicture}
+        \calloutquote[author={},width=6cm,position={(-1.2,-0.3)},fill=green!30,rounded corners]{アリスが予想を\textbf{反故}にする？}
+      \end{tikzpicture}
+    }
+
+    \uncover<3->{
+      アリスは$m$をコミットした後で、$m'(m' \ne m)$と偽れる
+
+      {\Large$\Downarrow$\scriptsize ならば}
+    }
+
+    \uncover<4->{
+      アリスは$g^r v^m = g^{r'} v^{m'}$となる$r'$を計算できる
+
+      {\Large$\Downarrow$\scriptsize ならば}
+    }
+
+    \uncover<5->{
+      アリスは$g$を何乗したら$v$となるかという\textbf{離散対数}が求められる
+
+      \begin{align*}
+        g^r v^m    &\equiv g^{r'} v^{m'}      &\pmod{p} \\
+        v^{m - m'} &\equiv g^{r' - r}         &\pmod{p} \\
+        \log_g{(v^{m - m'})} &\equiv r' - r   &\pmod{q} \\
+        \log_g{v} &\equiv (r' - r) / (m - m') &\pmod{q}
+      \end{align*}
+    }
+  \end{center}
+\end{frame}
+
+\subsection{離散対数問題}
+\begin{frame}[fragile]
+  \frametitle{離散対数問題}
+
+  \begin{exampleblock}{離散対数問題}
+    \begin{shadequote}[r]{\scriptsize クラウドを支えるこれからの暗号技術\cite{光成201506}}
+      次の条件を満す$g, p, y(y = g^x \bmod p)$が与えられたとき、$x$を求める問題のこと。
+    \end{shadequote}
+  \end{exampleblock}
+
+  \uncover<2->{
+    \begin{block}{}
+      $g, p$が次を満すとき、離散対数問題を解くことは困難
+      \begin{itemize}
+        \item<3-> $p$は巨大な素数
+        \item<4-> $p - 1$の約数の中に、巨大な素数$q$が含まれている
+        \item<5-> $g$は全ての$i = 1, \dots, q - 1$について、$g^i \not\equiv 1 \pmod{p}$となる%
+          \footnote[frame]{このような$g$のことを\textbf{生成元}と言う}
+      \end{itemize}
+    \end{block}
+  }
+\end{frame}
+
+\againframe<6>{protocol}
+\againframe<5>{mdash}
+
+\begin{frame}[fragile]
+  \frametitle{コイントスゲームの検証}
+
+  \begin{center}
+    アリスは$m$をコミットした後で、$m'(m' \ne m)$と偽れる
+
+    {\Large$\Downarrow$\scriptsize ならば}
+
+    アリスは$g$を何乗したら$v$となるかという\textbf{離散対数}が求められる
+  \end{center}
+
+  \uncover<2->{
+    \begin{alertblock}{}
+      \begin{center}
+        離散対数問題を解くことは困難であるということに矛盾する
+      \end{center}
+    \end{alertblock}
+  }
+
+  \uncover<3->{
+    \begin{block}{}
+      \begin{center}
+        アリスは$m$をコミットした後で$m'(m \ne m)$と偽ることはできない
+      \end{center}
+    \end{block}
+  }
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{コイントスゲームの検証}
+
+  \begin{center}
+    \begin{tikzpicture}
+      \calloutquote[author={},width=6.5cm,position={(1.1,-0.3)},fill=blue!30,rounded corners]{\textbf{封筒}をどうやって実現する？}
+    \end{tikzpicture}
+
+    \uncover<2->{
+      ボブは$g^r v^m$から$m$を特定できる
+
+      {\Large$\downarrow$\scriptsize しかし}
+    }
+
+    \uncover<3->{
+      $g, v$は\textbf{生成元}である
+
+      {\Large$\Downarrow$\scriptsize なので}
+      
+      $g^r \bmod p$と$v^m \bmod p$は$1, \dots, p - 1$の全ての値を取る
+
+      {\Large$\Downarrow$\scriptsize つまり}
+    }
+
+    \uncover<4->{
+      全ての$m'$には$g^r v^m = g^{r'} v^{m'}$となる$r'$が存在する
+
+      {\Large$\Downarrow$\scriptsize つまり}
+    }
+
+    \uncover<5->{
+      \begin{alertblock}{}
+        \begin{center}
+          ボブは正しい$m$を\textbf{区別}することができない
+        \end{center}
+      \end{alertblock}
+    }
+  \end{center}
+\end{frame}
+
+\section{まとめ}
+\begin{frame}[fragile]
+  \frametitle{まとめ}
+
+  \begin{itemize}
+    \item<2-> Mental Jinroはゲームマスターを排除した人狼である
+    \item<3-> コミットメントを利用することで、コミットした情報を反故にしたり、
+      コミットメントからコミットした情報を特定されることを防げる
+    \item<4-> Mental Jinroはこのコミットメントによって成り立っている
+    \item<5-> Mental Jinroの詳細は\href{http://qiita.com/yyu/items/8c10fcdbc17084ac2674}{Qiitaの記事}を参照のこと
+  \end{itemize}
+\end{frame}
+
 \begin{frame}{目次}
   \tableofcontents
+\end{frame}
+
+\section*{参考文献}
+\begin{frame}
+  \frametitle{参考文献}
+
+  \nocite{*}
+  \bibliographystyle{jplain_url}
+  \bibliography{ref}
+\end{frame}
+
+\begin{frame}
+  \centering
+  {\Huge Thank you for listening!}
 \end{frame}
 
 \end{document}
