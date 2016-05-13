@@ -100,7 +100,7 @@
    \uncover<2->{
     \begin{block}{}
       \begin{shadequote}[r]{}
-        \emph{Mental Jinro}は\textbf{人狼}から\textbf{ゲームマスター}を排除したゲームである。
+        \emph{Mental Jinro}は\textbf{人狼}から\textbf{ゲームマスター}を排除したゲームである
       \end{shadequote}
     \end{block}
   }
@@ -265,10 +265,10 @@
         の位数$q$の部分群$G$から\textbf{生成元}\footnote[frame]{後述する}$g, v$をランダムに選択して$p, q, g, v$をアリスへ送信する
       \item<3-> アリスは$p, q, g, v$を検証し、表と予想するなら\textcolor{red}{$m := 1$}を選択し、
         裏と予想するなら\textcolor{blue}{$m := q - 1$}を選択し、
-        乱数$r \in \{1, \dots, q - 1\}$を用いて$\mathbf{c := g^r v^m \bmod p}$計算し$c$をボブへ送信する
+        乱数$r \in \{1, \dots, q - 1\}$を用いて$c := g^r v^m \bmod p$計算し$c$をボブへ送信する
       \item<4-> ボブはコイントスをして、結果をアリスへ送信する
       \item<5-> アリスは$r, m$を公開する
-      \item<6-> ボブは$c \equiv g^r v^m \pmod{n}$を検証する
+      \item<6-> ボブは$c \equiv g^r v^m \pmod{p}$を検証する
     \end{enumerate}
   \end{block}
 \end{frame}
@@ -315,7 +315,7 @@
 
   \begin{exampleblock}{離散対数問題}
     \begin{shadequote}[r]{\scriptsize クラウドを支えるこれからの暗号技術\cite{光成201506}}
-      次の条件を満す$g, p, y(y = g^x \bmod p)$が与えられたとき、$x$を求める問題のこと。
+      次の条件を満す$g, p, y(y = g^x \bmod p)$が与えられたとき、$x$を求める問題のことである
     \end{shadequote}
   \end{exampleblock}
 
@@ -357,7 +357,7 @@
   \uncover<3->{
     \begin{block}{}
       \begin{center}
-        アリスは$m$をコミットした後で$m'(m \ne m)$と偽ることはできない
+        アリスは$m$をコミットした後で$m'(m \ne m)$と偽ることは困難である
       \end{center}
     \end{block}
   }
@@ -432,6 +432,8 @@
 \begin{frame}
   \centering
   {\Huge Thank you for listening!}
+  
+  {\Huge Any question?}
 \end{frame}
 
 \end{document}
