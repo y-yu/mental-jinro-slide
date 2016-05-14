@@ -45,7 +45,7 @@
 
 \title[Mental Jinroを支える暗号技術]{%
   \href{https://github.com/y-yu/mental-jinro-slide}{Mental Jinroを支える暗号技術} \\
-  \href{http://connpass.com/event/30661/}{\normalsize tsukuba.pm \#3}
+  \href{http://connpass.com/event/30661/}{\normalsize Tsukuba.pm \#3}
 }
 \author{吉村 優}
 \date{May 14, 2016}
@@ -88,6 +88,7 @@
         \item<2-> \href{https://www.coins.tsukuba.ac.jp/}{筑波大学 情報科学類} 学士（COINS11）
         \item<3-> \href{http://www.word-ac.net/}{WORD編集部} OB
         \item<4-> \href{http://logic.cs.tsukuba.ac.jp/index-j.html}{プログラム論理研究室} OB
+        \item<5-> 現在はScalaを書く仕事に従事
       \end{itemize}
     \end{column}
   \end{columns}
@@ -326,7 +327,10 @@
         \item<3-> $p$は巨大な素数
         \item<4-> $p - 1$の約数の中に、巨大な素数$q$が含まれている
         \item<5-> $g$は全ての$i = 1, \dots, q - 1$について、$g^i \not\equiv 1 \pmod{p}$となる%
-          \footnote[frame]{このような$g$のことを\textbf{生成元}と言う}
+          \footnote[frame]{このような$g$のことを\textbf{生成元}と言い、
+            生成元は全ての$i = 1, \dots, q - 1$と$j = 1, \dots, q - 1$について、
+            $i \ne j$ならば$g^i \not\equiv g^j \pmod{p}$となる
+          }
       \end{itemize}
     \end{block}
   }
@@ -380,9 +384,9 @@
     \uncover<3->{
       $g, v$は\textbf{生成元}である
 
-      {\Large$\Downarrow$\scriptsize なので}
+      {\Large$\Downarrow$\scriptsize 従って}
       
-      $g^r \bmod p$と$v^m \bmod p$は$1, \dots, p - 1$の全ての値を取る
+      $g^r \bmod p$は$1, \dots, p - 1$の全ての値を取る
 
       {\Large$\Downarrow$\scriptsize つまり}
     }
@@ -429,10 +433,30 @@
   \bibliography{ref}
 \end{frame}
 
+\section*{余談}
+\begin{frame}
+  \frametitle{余談}
+
+  このスライドは\href{https://texwiki.texjp.org/?LuaTeX}{Lua\LaTeX}と\href{https://texwiki.texjp.org/?Beamer}{Beamer}により作成され、
+  \href{https://travis-ci.org/}{Travis CI}による自動コンパイルが行われている
+
+  \begin{Ldescription}
+    \item[ソースコード]
+      \url{https://github.com/y-yu/mental-jinro-slide}
+    \item[PDF（アニメーションあり）]
+      \url{https://y-yu.github.io/mental-jinro-slide/mental_jinro.pdf}
+    \item[PDF（アニメーションなし）]
+      \url{https://y-yu.github.io/mental-jinro-slide/mental_jinro_without_animation.pdf}
+  \end{Ldescription}
+\end{frame}
+
+
 \begin{frame}
   \centering
   {\Huge Thank you for listening!}
-  
+
+  \quad
+
   {\Huge Any question?}
 \end{frame}
 
